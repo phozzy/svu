@@ -18,6 +18,16 @@ const (
 	TagModeCurrent = "current"
 )
 
+type Commit struct {
+	SHA   string
+	Title string
+	Body  string
+}
+
+func (c Commit) String() string {
+	return c.SHA + ": " + c.Title + "\n" + c.Body
+}
+
 // GitInterface defines the methods that Git must implement.
 type GitInterface interface {
 	DescribeTag(tagMode string, pattern string) (string, error) // Updated signature
@@ -37,16 +47,6 @@ func New() *Git {
 	return &Git{
 		open: git.PlainOpen,
 	}
-}
-
-type Commit struct {
-	SHA   string
-	Title string
-	Body  string
-}
-
-func (c Commit) String() string {
-	return c.SHA + ": " + c.Title + "\n" + c.Body
 }
 
 // SetOpenFunc allows overriding the default open function for testing purposes.
