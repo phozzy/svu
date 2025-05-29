@@ -13,6 +13,11 @@ import (
 	"github.com/hashicorp/go-version"
 )
 
+const (
+	TagModeAll     = "all"
+	TagModeCurrent = "current"
+)
+
 // GitInterface defines the methods that Git must implement.
 type GitInterface interface {
 	DescribeTag(tagMode string, pattern string) (string, error) // Updated signature
@@ -39,11 +44,6 @@ type Commit struct {
 	Title string
 	Body  string
 }
-
-const (
-	TagModeAll     = "all"
-	TagModeCurrent = "current"
-)
 
 func (c Commit) String() string {
 	return c.SHA + ": " + c.Title + "\n" + c.Body
